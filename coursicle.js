@@ -2,7 +2,6 @@ const puppeteer = require("puppeteer");
 const fs = require("fs");
 const csvParser = require("csv-parser");
 
-// Function to scrape emails from the URLs with a delay between each request
 async function scrapeEmailsWithDelay(urls, delay) {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
@@ -22,7 +21,6 @@ async function scrapeEmailsWithDelay(urls, delay) {
         results.push("Not found");
       }
 
-      // Add a delay between requests
       await page.waitForTimeout(delay);
     } catch (error) {
       console.error(`Error while scraping ${url}: ${error.message}`);
@@ -57,11 +55,10 @@ async function scrapeEmailsWithDelay(urls, delay) {
       }
       // console.log(urls);
 
-      const delayBetweenRequests = 5000; // 5 seconds (5000 milliseconds)
+      const delayBetweenRequests = 5000;
 
       const emails = await scrapeEmailsWithDelay(urls, delayBetweenRequests);
 
-      // Write results to a CSV file
       const resultsArray = urls.map((url, i) => ({
         Professor_URL: url,
         Domain: domains[i],
